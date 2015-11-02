@@ -35,8 +35,13 @@ namespace Fall2015.Controllers
 
         public ActionResult Index()
         {
-            List<Student> students = studentsRepository.All.ToList();
-            return View(students);
+            StudentIndexViewModel sivm = new StudentIndexViewModel
+            {
+                Students = studentsRepository.All.ToList(),
+                CompetencyHeaders = competencyHeadersRepository.All.ToList()
+            };
+
+            return View(sivm);
         }
 
         [HttpGet]

@@ -217,6 +217,7 @@
     <Compile Include="TDD\DiscountRules.cs" />
     <Compile Include="TDD\OurTimeSpan.cs" />
     <Compile Include="ViewModels\CreateEditStudentViewModel.cs" />
+    <Compile Include="ViewModels\StudentIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
