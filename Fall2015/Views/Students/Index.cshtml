@@ -63,8 +63,52 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
-    $(function () { //when document is loaded.
+    $(function() { //when document is loaded.
+
+        $(".glyphicon-plus").click(function () {
+            console.log("I am here..");
+            console.log($(this).parent());
+
+            $(this).parent().children(".outerContainer")
+.prepend('<input type="text" class="form-control compHeader"/><input type="button" id="btnSave" class="btn btn-primary" value="Save Competency"/>');
+
+            //$("#btnSave").click(function () {
+            //    alert("Is this working?");
+            //});
+
+        });
+
+        $(document.body).on("click", "#btnSave", function() {
+            var value = $(this).parent().children(".compHeader").val();
+            var compHeaderName = "Something"; //Ex: Find the relevant competency header name
+            //use .text()
+
+            //Call the Create (post) of CompetencyHeader controller
+            var myData = {
+                name: value,
+                competencyHeaderName: compHeaderName
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Create", "Competencies")',
+                data: JSON.stringify(myData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    console.log(data);
+                    alert("sucess");
+                },
+                error: function() {
+                    alert("Something bad happened");
+                }
+            });
+
+
+        });
+
         
         $("#btnCompetencies").click(function() {
             //when user clicks the button with the id, btnCompetencies
@@ -74,8 +118,18 @@
 
         $("#btnEditCompetencies").click(function() {
             //displays all the icons
+            $(".glyphicon-remove").show();
+            $(".glyphicon-pencil").show();
+            $(".glyphicon-plus").show();
+
         });
-
     });
-
 </script>
+
+
+
+
+
+
+
+

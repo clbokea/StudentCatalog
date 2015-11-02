@@ -51,18 +51,20 @@ namespace Fall2015.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CompetencyId,Name,CompetencyHeaderId")] Competency competency)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Create(string name, string competencyHeaderName)
         {
-            if (ModelState.IsValid)
-            {
-                competenciesRepository.InsertOrUpdate(competency);
-                competenciesRepository.Save();
-                return RedirectToAction("Index");
-            }
+            //Need to update this code....
+            //if (ModelState.IsValid)
+            //{
+            //    competenciesRepository.InsertOrUpdate(competency);
+            //    competenciesRepository.Save();
+            //    return RedirectToAction("Index");
+            //}
 
-            ViewBag.CompetencyHeaderId = new SelectList(competenciesRepository.All, "CompetencyHeaderId", "Name", competency.CompetencyHeaderId);
-            return View(competency);
+            //ViewBag.CompetencyHeaderId = new SelectList(competenciesRepository.All, "CompetencyHeaderId", "Name", competency.CompetencyHeaderId);
+            //return View(competency);
+            return null;
         }
 
         // GET: Competencies/Edit/5
