@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Fall2015.Models;
+using Fall2015.Repositories;
+using Fall2015.ViewModels;
 
 namespace Fall2015.Controllers
 {
@@ -17,6 +19,8 @@ namespace Fall2015.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private CompetencyHeadersRepository _competencyHeadersRepository 
+            = new CompetencyHeadersRepository();
 
         public AccountController()
         {
@@ -139,7 +143,17 @@ namespace Fall2015.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel vm = new RegisterViewModel
+            {
+                CreateEditStudentViewModel = new CreateEditStudentViewModel
+                {
+                    Student = new Student(),
+                    CompetencyHeaders = _competencyHeadersRepository.
+                        AllIncluding(a=>a.Competencies).ToList()
+                }
+            };
+
+            return View(vm);
         }
 
         //
@@ -147,7 +161,7 @@ namespace Fall2015.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, Student student)
         {
             if (ModelState.IsValid)
             {
@@ -155,6 +169,12 @@ namespace Fall2015.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Save student object to database
+                    StudentsRepository studentsRepository = new StudentsRepository();
+                    student.ApplicationUserId = user.Id;
+                    studentsRepository.InsertOrUpdate(student);
+                    studentsRepository.Save();
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

@@ -34,7 +34,7 @@ namespace Fall2015.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(string search="")
         {
             StudentIndexViewModel sivm = new StudentIndexViewModel
             {

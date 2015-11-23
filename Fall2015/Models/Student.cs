@@ -28,6 +28,7 @@ namespace Fall2015.Models
         //part of the many-to-many relationsship between Student and Competency
         public ICollection<Competency> Competencies { get; set; }
 
+        public String ApplicationUserId { get; set; } //String: ApplicationUser table the Id is a Guid (String)
 
         public void SaveImage(HttpPostedFileBase image, 
             String serverPath, String pathToFile)

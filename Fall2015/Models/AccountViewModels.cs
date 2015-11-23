@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Fall2015.ViewModels;
 
 namespace Fall2015.Models
 {
@@ -81,6 +82,7 @@ namespace Fall2015.Models
         public string ConfirmPassword { get; set; }
 
         //Do work...
+        public CreateEditStudentViewModel CreateEditStudentViewModel { get; set; }
     }
 
     public class ResetPasswordViewModel

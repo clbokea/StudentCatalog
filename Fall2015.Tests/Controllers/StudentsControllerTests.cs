@@ -26,7 +26,7 @@ namespace Fall2015.Tests.Controllers
                 Lastname = "Something"
             };
 
-            controller.Create(s, null);
+            //controller.Create(s, null);
 
             fakeEmailer.Verify(a=>a.Send("Welcome to our website..."));
         }
@@ -48,7 +48,7 @@ namespace Fall2015.Tests.Controllers
             };
 
             //Act - Where you call the method to test
-            controller.Create(s, null);
+            //controller.Create(s, null);
 
             //Assert - verify that insertorupdate was called
             mockRepo.Verify(a=>a.InsertOrUpdate(s));
